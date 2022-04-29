@@ -17,17 +17,19 @@ const componentHome = {
             const correct = new Set(Object.values(this.$refs.editable.correct));
             if (!correct.has(false)) {
                 const profile = this.$refs.editable.profile;
-                if (this.$refs.editable.file) {
+                if (this.modified.file !== null) {
+                    console.log('FILE')
                     const data = new FormData()
-                    data.append("img", this.$refs.editable.file);
-                    await fetch(`${this.url}/api/profile-ava?id=${this.user.id}`, {
+                    data.append("img", profile.file);
+                    await fetch(`${this.url}profile-ava?id=${this.user.id}`, {
                         method: "POST",
                         body: data,
                     })
                         .then(response => response.json())
                         .then(data => profile.img = data.path)
+                        .catch(err => alert(err))
                 };
-                await fetch(`${this.url}/api/profile?id=${this.user.id}`, {
+                await fetch(`${this.url}profile?id=${this.user.id}`, {
                     method: "PUT",
                     headers: { 'COntent-Type': 'application/json' },
                     body: JSON.stringify(profile),
@@ -49,6 +51,7 @@ const componentHome = {
         ]),
         ...mapState("homeModule", [
             "editor",
+            'modified',
         ]),
     },
     components: {

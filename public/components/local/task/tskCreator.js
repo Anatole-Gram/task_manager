@@ -104,7 +104,7 @@ const componentCreator = {
                     @click="crtTsk"
                     class="btn row row--black btn--stn text--white">
                         добавить задачу
-            </button>
+                </button>
             </div>
     </div>
 

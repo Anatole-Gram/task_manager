@@ -94,7 +94,7 @@ const mainActions = {
         const response = await fetch(url, { method: "DELETE" })
         if (response.ok) {
             commit("rmTskByIdx", payload.index)
-        }
+        } else { alert('задача не удалена') }
     }
 
 };

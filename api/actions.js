@@ -139,18 +139,20 @@ async function delTodo(id, task, destination) {
     return availability
 }
 async function getTodos(id) {
-    let forUser = await todos.findAll({
+    let data = { for: [], from: [], lastUpd: '' }
+    data.for = await todos.findAll({
         where: { destination: id }
     });
-    forUser.forEach(todo => todo.status = Boolean(todo.status));
-    let fromUser = await todos.findAll({
-        where: { sender: id }
-    });
-    fromUser.forEach(todo => todo.status = Boolean(todo.status))
-    let last = await todos.findOne({
-        order: [["updatedAt", "DESC"]],
-    });
-    return { for: forUser, from: fromUser, lastUpd: last.updatedAt }
+    if (data.for) {
+        data.from = await todos.findAll({
+            where: { sender: id }
+        });
+        [...data.for, ...data.from].forEach(todo => todo.status = Boolean(todo.status));
+        data.last = await todos.findOne({
+            order: [["updatedAt", "DESC"]],
+        });
+    };
+    return data
 };
 async function getTodosFromTask(id) {
     let data = await todos.findAll({

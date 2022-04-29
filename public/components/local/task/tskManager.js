@@ -42,7 +42,7 @@ const compopnetEditor = {
             this.$refs.todoCrtr.destination = this.todo.destination;
         },
         async rmTodo() {
-            const url = "http://127.0.0.1:3000/api/deltodos?id=" + this.todo.id + "&task=" + this.todo.taskId + "&destination=" + this.todo.destination;
+            const url = `${this.url}deltodos?id=${this.todo.id}&task=${this.todo.taskId}&destination=${this.todo.destination}`;
             await fetch(url, { method: "DELETE" })
                 .then(response => {
                     this.del({ response, id: this.todo.id, destination: this.todo.destination });
@@ -72,6 +72,7 @@ const compopnetEditor = {
     },
     computed: {
         ...mapState([
+            'url',
             "svg",
         ]),
     },

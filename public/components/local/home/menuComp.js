@@ -5,12 +5,14 @@ const homeMenu = {
     props: ["edit"],
     methods: {
         ...mapMutations("homeModule", [
-            "setEditor"
+            'setEditor',
+            'reset'
         ]),
     },
     computed: {
         ...mapState("homeModule", [
-            "editor"
+            'editor',
+            'avaEditor',
         ]),
     },
     template: `
@@ -24,11 +26,11 @@ const homeMenu = {
 
             <template v-else>
                 <button
-                    @click="setEditor(false)"
+                    @click="reset"
                     class="btn text--white">
                         отменить
                 </button>
-                <button
+                <button v-if="!avaEditor"
                     @click="edit"
                     class="btn text--white">
                     сохранить

@@ -5,6 +5,11 @@ const homeModule = {
 
     state: () => ({
         editor: false,
+        avaEditor: false,
+        modified: {
+            img: '',
+            file: null,
+        },
     }),
     actions: {
 

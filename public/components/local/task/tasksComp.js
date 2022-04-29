@@ -33,6 +33,9 @@ const componentTasks = {
             "tskById",
             "tasks",
         ]),
+        ...mapState([
+            'user',
+        ]),
         ...mapState("tasksModule", [
             "selected",
             "index",
@@ -41,7 +44,7 @@ const componentTasks = {
         ]),
     },
     created() {
-        this.$store.dispatch("getTasks", localStorage.id)
+        this.$store.dispatch("getTasks", this.user.id)
     },
     components: {
         "begin-created": componentCreator,

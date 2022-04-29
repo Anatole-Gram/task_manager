@@ -48,6 +48,19 @@ const homeMutations = {
     setEditor(state, status) {
         state.editor = status;
     },
+    editorAva(state, status) {
+        state.avaEditor = status;
+    },
+    modifiedImg(state, payload) {
+        state.modified.img = payload.dataUrl;
+        state.modified.file = payload.blob
+    },
+    reset(state) {
+        state.editor = false;
+        state.avaEditor = false;
+        state.modified = { img: '', file: null, }
+    }
+
 };
 const mainMutations = {
     // users

@@ -1,12 +1,13 @@
 
+import { imgLoader } from "./img_loader.js";
 
 const mapState = Vuex.mapState;
+const mapMutations = Vuex.mapMutations;
 
 const editorProfile = {
     data() {
         return {
             profile: {},
-            file: "",
             correct: {
                 name: true,
                 surname: true,
@@ -17,34 +18,15 @@ const editorProfile = {
     },
     methods: {
         loader() {
-            this.file = this.$refs.file.files[0];
+            const file = this.$refs.file.files[0];
             const reader = new FileReader();
             reader.addEventListener("load", () => {
-                this.profile.img = reader.result;
-                this.compressedImg()
+                this.modifiedImg({ dataUrl: reader.result, blob: null })
+                this.editorAva(true)
             });
-            if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
-                reader.readAsDataURL(this.file);
+            if (/\.(jpe?g|png)$/i.test(file.name)) {
+                reader.readAsDataURL(file);
             };
-        },
-        compressedImg() {
-            const canva = document.createElement("canvas");
-            canva.width = 200;
-            canva.height = 200;
-            const context = canva.getContext("2d");
-            const pic = this.$refs.avatar;
-            pic.addEventListener("load", () => {
-                let imgW = Math.round(pic.width * (pic.width > pic.height ? canva.height / pic.height : canva.width / pic.width));
-                let imgH = Math.round(pic.height * (pic.width > pic.height ? canva.width / pic.width : canva.height / pic.height));
-                const left = (canva.width - imgW) / 2
-                const top = (canva.height - imgH) / 2
-                context.drawImage(pic, left, top, imgW, imgH);
-                this.profile.img = canva.toDataURL();
-                canva.toBlob((blob) => {
-                    blob.originalname = `ava_${this.user.id}.png`;
-                    this.file = blob
-                });
-            })
         },
         checkName(item, val) {
             let check = this.exp.name.exec(val.trim());
@@ -53,7 +35,17 @@ const editorProfile = {
                 this.profile[item] = name[0].toUpperCase() + name.slice(1).toLowerCase();
                 this.correct[item] = true;
             } else { this.correct[item] = false; this.profile[item] = val };
-        }
+        },
+        updateProfileData(sources) {
+            Object.assign(this.profile, sources);
+        },
+        rstFile() {
+            this.$refs.file.value = null;
+        },
+        ...mapMutations('homeModule', [
+            'editorAva',
+            'modifiedImg',
+        ]),
 
     },
     computed: {
@@ -100,11 +92,8 @@ const editorProfile = {
         },
         mail: {
             set(newVal) {
-                let check = this.exp.mail.exec(newVal.trim());
-                if (check) {
-                    this.profile.mail = check.groups.mail;
-                    this.correct.mail = true;
-                } else this.correct.mail = false;
+                this.exp.mail.test(newVal.trim()) ? this.correct.mail = true : this.correct.mail = false;
+                this.profile.mail = newVal.trim();
             },
             get() {
                 return this.profile.mail
@@ -114,14 +103,25 @@ const editorProfile = {
             "user",
             "exp",
         ]),
+        ...mapState('homeModule', [
+            'avaEditor',
+            'modified',
+        ])
     },
     mounted() {
-        Object.assign(this.profile, this.user);
+        this.updateProfileData(this.user)
     },
 
+    components: {
+        "img-loader": imgLoader,
+    },
     template: `
     <div 
         class="content card">
+            <img-loader v-if="avaEditor" ref=imgLoader 
+                :profileUpd="updateProfileData">
+            </img-loader>
+
             <div 
                 class="card-profile card__header-user">
                     <div 
@@ -131,6 +131,7 @@ const editorProfile = {
                                 ref="avatar"
                                 class="ava">
                                 <label for="us-ava"
+                                    @click="rstFile"
                                     class="btn btn--stn row--black lbl text--white">
                                         выберите файл
                                 </label>

@@ -26,7 +26,9 @@ app.post("/api/profile-ava", multer({ storage: storageConfig }).single("img"), f
     response.send({ path })
 });
 app.put("/api/profile", async function (request, response) {
+    console.log(request.query.id, request.body)
     const user = await storage.updUser(request.query.id, request.body)
+    console.log(user)
     response.send(user)
 })
 // users
@@ -40,10 +42,17 @@ app.get("/api/users", async function (request, response) {
 });
 // todos
 app.get("/api/todos", async function (request, response) {
+
+
     let lastEqual = await storage.compareLastTodo(request.query.last);
+    console.log("LAST")
+    console.log(lastEqual)
     if (!lastEqual) {
         const data = await storage.getTodos(request.query.id);
+        console.log("DATA")
+        console.log(data)
         response.send(data)
+
     } else { response.status(304).end() }
 });
 app.put("/api/updStatus", async function (request, response) {
@@ -87,6 +96,7 @@ app.post("/api/addtask", async function (request, response) {
 });
 app.delete("/api/deltask", async function (request, response) {
     await storage.delTask(request.query.id);
+    response.send();
 })
 
 app.use(history());
