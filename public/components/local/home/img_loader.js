@@ -11,6 +11,7 @@ const imgLoader = {
                 moves: false,
                 width: 200,
                 height: 200,
+                size: 200,
                 minWidth: 200,
                 minHeight: 200,
                 cursorX: 0,
@@ -67,13 +68,13 @@ const imgLoader = {
                 this.defineAreaPos('left', 'top', this.cursorX - this.area.cursorX, this.cursorY - this.area.cursorY);
             };
             if (this.resize.active) {
-                this.area.moves = false;
                 this.resize.signX < 0 ? this.area.width += e.movementX : this.area.width -= e.movementX;
                 this.resize.signY < 0 ? this.area.height += e.movementY : this.area.height -= e.movementY;
-                this.defineAreaPos(...Object.keys(this.area.pos), ...Object.values(this.area.pos));
+                this.area.size = this.defineAreaSize(Math.max(this.area.width, this.area.height), ...Object.values(this.area.pos))
+
             }
         },
-        defineCursor(e, el) {
+        defineCursor(e) {
             this.cursorX = e.clientX - this.$refs.loader.offsetLeft;
             this.cursorY = e.clientY - this.$refs.loader.offsetTop;
         },
@@ -124,6 +125,15 @@ const imgLoader = {
                 [posY]: pos.y + 'px',
             };
         },
+        defineAreaSize(size, posX, posY) {
+            let x = parseInt(posX.match(/\d+/));
+            let y = parseInt(posY.match(/\d+/));
+            switch (true) {
+                case ((x + size) > this.$refs.loader.offsetWidth): return this.$refs.loader.offsetWidth - x;
+                case ((y + size) > this.$refs.loader.offsetHeight): return this.$refs.loader.offsetHeight - y;
+                default: return size
+            }
+        },
         adjustPos(x, y) {
             let outX = x
             let outY = y
@@ -159,8 +169,8 @@ const imgLoader = {
         ]),
         areaStyle() {
             return {
-                width: `${this.area.width}px`,
-                height: `${this.area.width}px`,
+                width: `${this.area.size}px`,
+                height: `${this.area.size}px`,
                 maxWidth: `${this.area.maxWidth}px`,
                 maxHeight: `${this.area.maxHeight}px`,
                 minWidth: `${this.area.minWidth}px`,

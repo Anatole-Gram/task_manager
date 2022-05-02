@@ -854,7 +854,7 @@ main {
 
 .loader__img {
   max-width: 400px;
-  max-height: 500px;
+  max-height: 400px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
