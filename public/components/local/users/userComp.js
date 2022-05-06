@@ -1,6 +1,5 @@
 
 
-const mapState = Vuex.mapState
 const mapMutations = Vuex.mapMutations
 
 const componentUser = {
@@ -14,30 +13,29 @@ const componentUser = {
     template: `
         <div  
             @dblclick="setSliderIdx(index), sliderActive()"
-            class="row row-card row-card--interactive db">
+            class="row row_white card-row usr-row card-row_interactive db">
 
                         <div
-                            class="row-card__box row-card__lc">
+                            class="card-row__list text">
                                 <h5 
-                                    class="text text__title">
+                                    class="text__title">
                                         {{ item.name }} {{ item.surname }}
+                                </h5>
+
+                                <h5 
+                                    class="text__content">
+                                        {{ item.position }}
                                 </h5>
                         </div>
 
                         <div
-                            class="row-card__box row-card__cc text text__content">
-                            <p>
-                                
-                            <span class="text--defining">должность:&nbsp</span>{{ item.position }}
-                            </p>
-                        </div>
-
-                        <div
-                            class="row-card__box row-card__rc text text__content">
-                                <p>
-                                     {{ item.phone }}
+                            class="card-row__list usr-row__contact text">
+                                <p
+                                    class="text__content">
+                                        {{ item.phone }}
                                 </p>
-                                <p>
+                                <p
+                                    class="text__content">
                                      {{ item.mail }}
                                 </p>
                         </div>

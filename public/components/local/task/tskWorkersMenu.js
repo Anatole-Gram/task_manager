@@ -14,7 +14,7 @@ const tskMenu = {
     },
     template: `
 
-    <div class="editor-list">
+    <div class="editor__side-bar editor-list">
         <ul 
             class="list">
                 <li 

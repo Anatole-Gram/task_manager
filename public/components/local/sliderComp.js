@@ -43,22 +43,22 @@ function Slider(namespaced, sliderItem) {
         <button 
             v-html="svg.arrow"
             @click="idxDecrease()"
-            class="card-slider__arrow card-slider__arrow--left">
+            class="slider-btn slider-btn_left">
         </button>
-        <div class="content">
-            <button v-html="svg.close"
-                @click="sliderActive()"
-                class="btn-close">
-            </button>
+
+        <button
+            @click="sliderActive()"
+            class="slider-btn slider-btn__close slider-btn_central">
+        </button>
             <slider-item v-if="array.length" :item="currentItem"></slider-item>
-            <h3 v-else class="text text-title text--central">
+            <h3 v-else style="textAlign: center" class="text text__title text_red">
               Cписок пуст
             </h3>
-        </div>
+
         <button 
             v-html="svg.arrow"
             @click="idxIncrease()"
-            class="card-slider__arrow card-slider__arrow--right">
+            class="slider-btn slider-btn_right">
         </button>
     `
     };

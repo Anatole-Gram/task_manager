@@ -193,65 +193,130 @@ const imgLoader = {
         @mouseup="raseAnchor()"
         class="loader-wraper">
 
-    <div ref="loader"
-        @mousemove="defineCursor($event), move($event)"
-        :style="loaderStyle"
-        class="loader">
+        <div ref="loader"
+            @mousemove="defineCursor($event), move($event)"
+            :style="loaderStyle"
+            class="loader">
 
-        <div 
-            @mousedown="dropAnchor($event, 'area'), area.moves=true"
-            ref="area"
-            :style="areaStyle"
-            class="loader__img-area">
             <div 
-                @mousedown="dropAnchor($event, 'area')"
-                data-x="right"
-                data-y="bottom"
-                :style="{left:resize.rectPos , top:resize.rectPos}"
-                class="loader__corner">
-                </div>
-            <div 
-                @mousedown="dropAnchor($event, 'area')"
-                data-x="left"
-                data-y="bottom"
-                :style="{right:resize.rectPos , top:resize.rectPos}"
-                class="loader__corner">
-                </div>
-            <div 
-                @mousedown="dropAnchor($event, 'area')"
-                data-x="right"
-                data-y="top"
-                :style="{left:resize.rectPos , bottom:resize.rectPos}"
-                class="loader__corner">
-                </div>
-            <div 
-                @mousedown="dropAnchor($event, 'area')"
-                data-x="left"
-                data-y="top"
-                :style="{right:resize.rectPos , bottom:resize.rectPos}"
-                class="loader__corner">
-                </div>
+                @mousedown="dropAnchor($event, 'area'), area.moves=true"
+                ref="area"
+                :style="areaStyle"
+                class="loader__img-area">
+                <div 
+                    @mousedown="dropAnchor($event, 'area')"
+                    data-x="right"
+                    data-y="bottom"
+                    :style="{left:resize.rectPos , top:resize.rectPos}"
+                    class="loader__corner">
+                    </div>
+                <div 
+                    @mousedown="dropAnchor($event, 'area')"
+                    data-x="left"
+                    data-y="bottom"
+                    :style="{right:resize.rectPos , top:resize.rectPos}"
+                    class="loader__corner">
+                    </div>
+                <div 
+                    @mousedown="dropAnchor($event, 'area')"
+                    data-x="right"
+                    data-y="top"
+                    :style="{left:resize.rectPos , bottom:resize.rectPos}"
+                    class="loader__corner">
+                    </div>
+                <div 
+                    @mousedown="dropAnchor($event, 'area')"
+                    data-x="left"
+                    data-y="top"
+                    :style="{right:resize.rectPos , bottom:resize.rectPos}"
+                    class="loader__corner">
+                    </div>
+            </div>
+            <img 
+                :src="modified.img"
+                ref="img"
+                @load="defineImg()"
+                class="loader__img">
         </div>
-        <img 
-            :src="modified.img"
-            ref="img"
-            @load="defineImg()"
-            class="loader__img">
-    </div>
 
-        <button 
-            @click="admit()"
-            :style="{width: loader.width+'px', marginTop: 8+'px'}"
-            class="btn row row--black">
-                admit
-        </button>
-        <button 
-            @click="editorAva(false)"
-            :style="{width: loader.width+'px', marginTop: 8+'px'}"
-            class="btn row row--black">
-                dismiss
-        </button>
+            <button 
+                @click="admit()"
+                :style="{width: loader.width+'px', marginTop: 8+'px'}"
+                class="btn loader__btn row row_black">
+                    admit
+            </button>
+            <button 
+                @click="editorAva(false)"
+                :style="{width: loader.width+'px', marginTop: 8+'px'}"
+                class="btn loader__btn row row_black">
+                    dismiss
+            </button>
     </div>
     `
 };
 export { imgLoader }
+
+
+// <div
+// @mouseup="raseAnchor()"
+// class="loader-wraper">
+
+// <div ref="loader"
+// @mousemove="defineCursor($event), move($event)"
+// :style="loaderStyle"
+// class="loader">
+
+// <div
+//     @mousedown="dropAnchor($event, 'area'), area.moves=true"
+//     ref="area"
+//     :style="areaStyle"
+//     class="loader__img-area">
+//     <div
+//         @mousedown="dropAnchor($event, 'area')"
+//         data-x="right"
+//         data-y="bottom"
+//         :style="{left:resize.rectPos , top:resize.rectPos}"
+//         class="loader__corner">
+//         </div>
+//     <div
+//         @mousedown="dropAnchor($event, 'area')"
+//         data-x="left"
+//         data-y="bottom"
+//         :style="{right:resize.rectPos , top:resize.rectPos}"
+//         class="loader__corner">
+//         </div>
+//     <div
+//         @mousedown="dropAnchor($event, 'area')"
+//         data-x="right"
+//         data-y="top"
+//         :style="{left:resize.rectPos , bottom:resize.rectPos}"
+//         class="loader__corner">
+//         </div>
+//     <div
+//         @mousedown="dropAnchor($event, 'area')"
+//         data-x="left"
+//         data-y="top"
+//         :style="{right:resize.rectPos , bottom:resize.rectPos}"
+//         class="loader__corner">
+//         </div>
+// </div>
+// <img
+//     :src="modified.img"
+//     ref="img"
+//     @load="defineImg()"
+//     class="loader__img">
+// </div>
+
+// <button
+//     @click="admit()"
+//     :style="{width: loader.width+'px', marginTop: 8+'px'}"
+//     class="btn row row--black">
+//         admit
+// </button>
+// <button
+//     @click="editorAva(false)"
+//     :style="{width: loader.width+'px', marginTop: 8+'px'}"
+//     class="btn row row--black">
+//         dismiss
+// </button>
+// </div>

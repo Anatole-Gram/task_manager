@@ -44,7 +44,7 @@ const componentTasks = {
         ]),
     },
     created() {
-        this.$store.dispatch("getTasks", this.user.id)
+        this.$store.dispatch("getTasks", localStorage.id)
     },
     components: {
         "begin-created": componentCreator,
@@ -54,19 +54,19 @@ const componentTasks = {
     },
     template: `
     
-    <div class="container container__main">
-
         <menu-component 
             :rm="rmTsk">
         </menu-component>
     
-        <div class="content">
+        <div v-if="(!creator && !editor)" class="content">
         
-            <list-item v-if="(!creator && !editor)" v-for="(task, index) of tasks"
+            <list-item v-for="(task, index) of tasks"
                 :key="task.id"
                 @click="select({id: task.id, idx: index})"
                 :item="task">
             </list-item>
+
+        </div>
 
             <begin-created v-else-if="creator"></begin-created>
             
@@ -75,10 +75,8 @@ const componentTasks = {
                 :rm="rmTsk">
             </begin-edited>
 
-        </div>
 
-    </div>
-    
     `
 }
 export { componentTasks };
+

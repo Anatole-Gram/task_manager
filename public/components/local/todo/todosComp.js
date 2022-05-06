@@ -40,23 +40,24 @@ const componentTodos = {
         "filter-condition": conditionFilter,
     },
     template: `
-    <div class="container container__main">
+
         <div 
-            class="content-filter row row--black">
+            class="content-menu row">
                 <filter-users></filter-users>
                 <filter-condition></filter-condition>
         </div>
 
         <slider-todo v-if="slider" :array="todos" ></slider-todo>
-
-        <div v-else 
-            class="content">
-                <template v-for="(todo, index) of todos">
+        
+        <div v-else
+             class="content">
+                <template  v-else v-for="(todo, index) of todos">
                     <user-todo :item="todo" :index="index"></user-todo>
                 </template>
         </div>
-    </div>
+
     `,
 };
 
 export { componentTodos }
+

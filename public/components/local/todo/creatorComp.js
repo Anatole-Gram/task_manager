@@ -48,46 +48,48 @@ const todoCreator = {
     template: `
 
     <div 
-        class="editor-todo card objective">
-            <section class="objective__section">
+        class="editor__creator todo">
+            <section class="todo__section">
                 <label for="tdcrt-tlt" 
-                    class="objective__sub-ttl lbl lbl--black">
+                    class="todo__section-sub-ttl lbl lbl_black">
                         задание
                         <span v-show="!correct.title" 
-                            class="text--red">
+                            class="text_red">
                                 : не менее 10 символов
                         </span>
                 </label>
                 <input v-model="title"
                     type="text" 
                     id="tdcrt-tlt"
-                    class="objective__title objective-wraper row--white text text__content">
+                    class="todo__title todo__text-wraper row row_white text text__content">
             </section>
-            <section class="objective__section">
+            <section class="todo__section">
                 <label for="tdcrt-txtae" 
-                    class="objective__sub-ttl  lbl lbl--black">
+                    class="todo__section-sub-ttl  lbl lbl_black">
                         комментарий
                         <span v-if="!correct.comment" 
-                            class="text--red">
+                            class="text_red">
                                 :не менее 10 символов
                         </span>
                 </label>
                 <textarea v-model="comment"
                     id="tdcrt-txtae" 
-                    class="editor-todo__comment objective-wraper row text text__content">
+                    class="todo__comment todo__text-wraper row text text__content">
                 </textarea>
             </section>
     </div>
-
+<section 
+    class="editor__options">
     <div 
-        class="editor-slct row row--black">
+        class="menu-row creator__filter row row_black">
             <select v-model="destination"
+                :disabled="obj.id?true:false"
                 id="slc1" 
-                class="filter-condition__select text text__content text--white">
+                class="filter-condition__select text text__content text_white">
                     <option 
                         disabled
                         value="0"
-                        class="text--red">
+                        class="text_red">
                             выберите пользователя
                     </option>
                     <option v-for="usr of users"
@@ -99,24 +101,24 @@ const todoCreator = {
 
 
     <div 
-        class="editor-menu ">
+        class="menu-row menu_2b">
             <button v-if="obj.id"
                 @click="rm"
-                class="btn btn--stn row row--black text--white">
+                class="btn btn--stn row row_black text_white">
                     удалить задание
             </button>
             <button
                 @click="obj.id ? rst(obj.destination) : rst()"
                 v-text="obj.id ? 'новое задание' : 'сбросить'"
-                class="btn btn--stn row row--black text--white">
+                class="btn btn_stn row row_black text_white">
             </button>
             <button  
                 @click="send"
                 v-text="obj.id ? 'сохранить изменения' : 'добавить задание'" 
-                class="btn btn--stn row row--black text--white">
+                class="btn btn_stn row row_black text_white">
             </button>
     </div>
-
+</section>
     `
 }
 export { todoCreator }

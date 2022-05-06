@@ -19,47 +19,58 @@ const sliderItemTodos = {
     },
     template: `
     <div
-        class="card objective card-slider">
+        class="todo">
                 <h5 
                     class="text text__title">
                         {{ user }}
                 </h5>
                 <section 
-                    class="objective__section ">
+                    class="todo__section">
                         <span 
-                            class="objective__sub-ttl text text--defining">
+                            class="todo__section-sub-ttl text text_defining">
                                 задание
                         </span>
-                        <p 
-                            class="objective__title row row--white text text__content text--central">
-                                {{ item.title }}
-                        </p>
+                        <div class="todo__text-wraper  todo__title row row_white">
+                            <p 
+                                class="text text__content">
+                                    {{ item.title }}
+                            </p>
+                        </div>
                 </section>
                     
                 <section 
-                    class="objective__section">
+                    class="todo__section">
+
                         <span 
-                            class="objective__sub-ttl text text--defining">
+                            class="todo__section-sub-ttl text text_defining">
                                 комментарий
                         </span>
-                        <p class="objective__comment objective-wraper row--white text text__content">
-                            {{ item.comment }}
-                        </p>
+
+                        <div class="todo__text-wraper todo__comment row row_white">
+                            <p class="text">
+                                {{ item.comment }}
+                            </p>
+                        </div>
+
+                    <label 
+                        :for="'check'+item.id"
+                        class="btn todo__btn todo__check text_white row row_black ">
+                            {{ item.status?"выполненно":"не выполненно" }}
+                    </label>
+
+                    <input 
+                        v-model="item.status"
+                        :id="'check'+item.id"
+                        type="checkbox" 
+                        cheked="item.status"  
+                        @click="updStatus(item.id)" 
+                        class="inp-check">
+
                 </section>
-                <label 
-                    :for="'check'+item.id"
-                    class="btn btn--stn text--white row row--black ">
-                        {{ item.status?"выполненно":"не выполненно" }}
-                </label>
-                <input 
-                    v-model="item.status"
-                    :id="'check'+item.id"
-                    type="checkbox" 
-                    cheked="item.status"  
-                    @click="updStatus(item.id)" 
-                    class="inp-check">
+
     </div>
     `
 };
 
 export { sliderItemTodos }
+

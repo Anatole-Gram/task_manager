@@ -40,10 +40,10 @@ function filterUsers(namespaced) {
         template: `
         <div class="filter filter-users">
             <div 
-                class="filter filter__menu text text--white">
+                class="filter filter__menu text_white">
                     <span 
                         @click="showList=!showList" 
-                        class="btn text__content">
+                        class="btn text text__content text_white">
                             пользователи:&nbsp;
                     </span> 
                 <input
@@ -51,8 +51,8 @@ function filterUsers(namespaced) {
                     @click="selectAll(!allSelected)"
                     :value="allSelected ? 'сбросить' : 'выбрать всех'"
                     :class="{
-                        'text--green': !allSelected,
-                        'text--red': allSelected
+                        'text_green': !allSelected,
+                        'text_red': allSelected
                     }"
                     class="btn text text__content">
             </div>
@@ -63,8 +63,8 @@ function filterUsers(namespaced) {
                     <li v-for="user of users"
                         class="list__item">
                             <label :for="'user_'+user.id"
-                                :class="{'text--green': selected.has(user.id)}"
-                                class="lbl text--white">
+                                :class="{'text_green': selected.has(user.id)}"
+                                class="lbl text_white">
                                     {{ user.name }} {{ user.surname }} 
                             </label>
                             <input 
@@ -77,7 +77,7 @@ function filterUsers(namespaced) {
                         class="filter__menu">
                             <button  
                                 @click="selectAll(false)"
-                                class="btn text text__content text--red">
+                                class="btn text text__content text_red">
                                     cбросить
                             </button>
                     </li>

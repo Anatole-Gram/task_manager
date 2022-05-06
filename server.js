@@ -21,14 +21,13 @@ app.use(bodyParser.json())
 
 //user
 app.post("/api/profile-ava", multer({ storage: storageConfig }).single("img"), function (request, response) {
-    const exp = /\\img/i
+    const exp = /(\\|\/)img/i
     let path = request.file.path.slice(request.file.path.search(exp));
     response.send({ path })
 });
 app.put("/api/profile", async function (request, response) {
     console.log(request.query.id, request.body)
     const user = await storage.updUser(request.query.id, request.body)
-    console.log(user)
     response.send(user)
 })
 // users

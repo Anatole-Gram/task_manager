@@ -62,13 +62,13 @@ const componentCreator = {
     },
     template: `
     <div
-        class="card objective">
-            <section class="objective__section">
+        class="todo">
+            <section class="todo__section">
                 <label for="tsknw-ttl" 
-                    class="objective__sub-ttl  lbl lbl--black text text--central">
+                    class="todo__section-sub-ttl text text_defining">
                         задача
                     <span v-if="!correct.title" 
-                        class="text--red">
+                        class="text_red">
                             :не менее 10 символов
                     </span>
                 </label>
@@ -76,33 +76,33 @@ const componentCreator = {
                 <input v-model="title"
                     type="text"
                     id="tsknw-ttl" 
-                    class="objective__title objective-wraper row--white text text__content text--central">
+                    class="row todo__title row_white text text__content">
             </section> 
 
-            <section class="objective__section">
+            <section class="todo__section">
                 <label for="tsknw-txtea" 
-                    class="objective__sub-ttl  lbl lbl--black text text--central">
+                    class="todo__section-sub-ttl text text_defining">
                         описание
                     <span v-if="!correct.description" 
-                        class="text--red">
+                        class="text_red">
                             :не менее 10 символов
                     </span>
                 </label>
                 <textarea v-model="description" 
                     id="tsknw-txtea" 
-                    class="row objective__comment text text__content">
+                    class="row row_white todo__comment todo__comment text text__content">
                 </textarea>
             </section>
 
-            <div class="row-menu">
+            <div class="menu-row menu_2b">
                 <button 
                     @click="rst"
-                    class="btn objective-wraper row--black btn--stn text--white">
+                    class="btn todo__btn row row_black text_white">
                         сбросить
                 </button>
                 <button 
                     @click="crtTsk"
-                    class="btn row row--black btn--stn text--white">
+                    class="btn todo__btn row row_black text_white">
                         добавить задачу
                 </button>
             </div>

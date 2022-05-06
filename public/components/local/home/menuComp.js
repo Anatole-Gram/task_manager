@@ -17,22 +17,22 @@ const homeMenu = {
     },
     template: `
     <div 
-        class="row row--black content-menu">
+        class="content-menu menu row row_black ">
             <button v-if="!editor"
                 @click="setEditor(true)"
-                class="btn text--white">
+                class="content-menu__btn">
                     редактировать
             </button>
 
             <template v-else>
                 <button
                     @click="reset"
-                    class="btn text--white">
+                    class="content-menu__btn">
                         отменить
                 </button>
                 <button v-if="!avaEditor"
                     @click="edit"
-                    class="btn text--white">
+                    class="content-menu__btn">
                     сохранить
                 </button>
             </template>

@@ -17,8 +17,8 @@ const commentList = {
     },
     template: `
         <div 
-            class="row row-card row-card--interactive"
-            :class="{'row--black': slctd}">
+            class="row row_white task-row card-row_interactive"
+            :class="{'row_black': slctd}">
                 <p 
                     class="row-card__content text text__content">
                         {{ item.title }}

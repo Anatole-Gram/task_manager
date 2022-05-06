@@ -23,7 +23,7 @@ const taskEditor = {
 
     <div v-if="!edit"
         @click="edit=true"
-        class="editor__tsk-row row row--white row-card--interactive">
+        class=" editor__task-row row row_white task-row card-row_interactive">
             <p 
                 class="text text__content">
                     {{obj.title}}  
@@ -32,18 +32,18 @@ const taskEditor = {
 
 
     <div v-else
-        class="editor__tsk card objective">
+        class="editor-tsk todo">
             <button v-html="svg.collapse"
                 class="win-act"
                 @click="edit=false">
             </button>
 
-        <section class="objective__section">
+        <section class="todo__section">
             <label for="tsk_ttl"
-                class="objective__sub-ttl lbl lbl--black">
+                class="todo__section-sub-ttl lbl lbl_black">
                     заголовок
                 <span v-if="!correct.title" 
-                    class="text--red">
+                    class="text_red">
                     :не менее 10 символов
                 </span>
             </label>
@@ -51,34 +51,35 @@ const taskEditor = {
                 type="text" 
                 id="tsk_ttl"
                 v-model="title"
-                class="objective__title objective-wraper row--white text text__content">
+                class="todo__title todo__text-wraper row row_white text text__content">
         </section>
 
-        <section class="objective__section">
+        <section class="todo__section">
             <label for="tsk_descr"
-                class="objective__sub-ttl lbl lbl--black">
+                class="todo__section-sub-ttl lbl lbl_black">
                     описание
                 <span v-if="!correct.description" 
-                    class="text--red">
+                    class="text_red">
                         :не менее 10 символов
                 </span>
                 </label>
             <textarea 
                 id="tsk_descr"
                 v-model="description"
-                class="objective__comment objective-wraper row row--white text text__content">
+                class="todo__comment todo__text-wraper row row_white text text__content">
                 </textarea>
         </section>
 
             <div
-                class="content-menu row row--black">
+                class="content-menu menu row row_black">
                     <button 
                         @click="upd(), edit=false"
-                        class="btn btn--stn text--white">
+                        class="btn btn_stn text_white">
                             сохранить изменения
                     </button>
             </div>
     </div>
+
     `
 };
 

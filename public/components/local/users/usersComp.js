@@ -25,28 +25,25 @@ const componentUsers = {
         "filter-users": usersFilter,
     },
     template: `
-    <div class="container container__main">
 
         <div 
-            class="content-filter row row--black">
+            class="content-menu row">
                 <filter-users></filter-users>
         </div>
 
-
         <slider-user v-if="slider" :array="users"></slider-user>
-
-
         <div v-else class="content">
-        
-            <template  v-for="(user, index) of users">
+            <template   v-for="(user, index) of users">
                 <user-card :item="user" :index="index"></user-card>
             </template>
-            
         </div>
+            
+
     
 
-    </div>
+
     `,
 };
 
 export { componentUsers };
+

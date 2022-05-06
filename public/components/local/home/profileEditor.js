@@ -117,22 +117,22 @@ const editorProfile = {
     },
     template: `
     <div 
-        class="content card">
+        class="profile">
             <img-loader v-if="avaEditor" ref=imgLoader 
                 :profileUpd="updateProfileData">
             </img-loader>
 
             <div 
-                class="card-profile card__header-user">
+                class="profile__info">
                     <div 
                         class="card">
                             <img 
                                 :src="profile.img"
                                 ref="avatar"
-                                class="ava">
+                                class="profile__info-ava">
                                 <label for="us-ava"
                                     @click="rstFile"
-                                    class="btn btn--stn row--black lbl text--white">
+                                    class="profile__info-btn btn row row_black">
                                         выберите файл
                                 </label>
                             <input  
@@ -146,90 +146,90 @@ const editorProfile = {
                     </div>
 
                     <ul 
-                        class="user-info">
+                        class="profile__info-list">
                             <li 
-                                class="user-info__item row row--white">
+                                class="profile__info-row row row_white">
                                 
                                     <label for="name" 
-                                        class="lbl lbl--black">
-                                            имя:
-                                    </label>
+                                        class="lbl lbl_black">
+                                            имя:&nbsp;
+                                    </label>&nbsp;
                                     <input v-model="name"
                                          type="text"
                                          ref="txt"  
                                          id="name"
-                                         class="row-form text text__content">
+                                         class="text text__content">
                                     <b 
-                                        :class="{'text--green':correct.name, 'text--red': !correct.name}"
-                                        class="text">
+                                        :class="{'text_green':correct.name, 'text_red': !correct.name}"
+                                        class="profile__info-msg text">
                                             обязательно&nbsp;к&nbsp;заполнению
                                     </b>
                             </li>
                             <li 
-                                class="user-info__item row row--white">
+                                class="profile__info-row row row_white">
 
                                 <label for="surname"  
-                                    class="lbl lbl--black">
-                                        фамилия:
+                                    class="lbl lbl_black">
+                                        фамилия:&nbsp;
                                 </label>
                                 <input v-model="surname" 
                                     type="text"
                                     ref="txt" 
                                     id="surname"
-                                    class="row-form text text__content">
+                                    class="text text__content">
                                 <b 
-                                    :class="{'text--green':correct.surname, 'text--red': !correct.surname}"
-                                    class="text">
+                                    :class="{'text_green':correct.surname, 'text_red': !correct.surname}"
+                                    class="profile__info-msg text">
                                         обязательно&nbsp;к&nbsp;заполнению
                                  </b>
                                      
                             </li>
                             <li 
-                                class="user-info__item row row--white">
+                                class="profile__info-row row row_white">
 
                                     <label for="position" 
-                                        class="lbl lbl--black">
-                                            должность:
+                                        class="lbl lbl_black">
+                                            должность:&nbsp;
                                     </label> 
                                     <input v-model="profile.position"
                                         type="text" 
                                         id="position"
-                                        class="row-form text text__content">
+                                        class="text text__content">
 
                             </li>
                             <li 
-                                class="user-info__item row row--white">
+                                class="profile__info-row row row_white">
 
                                     <label for="phone"
-                                        class="lbl lbl--black">
-                                            телефон:
+                                        class="lbl lbl_black">
+                                            телефон:&nbsp;
                                     </label>
                                     <input v-model="phone"
                                         type="text"
                                         id="phone"
-                                        class="row-form text text-number">
+                                        class="text text__content">
                                     <b 
-                                        :class="{'text--green':correct.phone, 'text--red': !correct.phone}"
-                                        class="text">
+                                        :class="{'text_green':correct.phone, 'text_red': !correct.phone}"
+                                        class="profile__info-msg text">
                                             номер&nbsp;формата:&nbsp;+7&nbsp;xxx&nbsp;xxx&nbsp;xx&nbsp;xx
                                     </b>
 
                             </li>
                             <li 
-                                class="user-info__item row row--white">
+                                class="profile__info-row row row_white">
 
                                     <label for="mail" 
-                                        class="lbl lbl--black">
-                                         почта:
+                                        class="lbl lbl_black">
+                                         почта:&nbsp;
                                     </label>
                                     <input v-model="mail"
                                         type="text"
                                         ref="mail"
                                         id="mail"
-                                        class="row-form text text__content">
+                                        class="text text__content">
                                     <b 
-                                        :class="{'text--green':correct.mail, 'text--red': !correct.mail}"
-                                        class="text">
+                                        :class="{'text_green':correct.mail, 'text_red': !correct.mail}"
+                                        class="profile__info-msg text">
                                             обязательно&nbsp;к&nbsp;заполнению
                                     </b>
                             </li>
@@ -238,7 +238,7 @@ const editorProfile = {
             <textarea contenteditable="true"
                 v-model="profile.note"
                 ref="txt"
-                class="row user-note text text__content">
+                class="profile__note row row--white text text__content">
                     
             </textarea>
     </div>

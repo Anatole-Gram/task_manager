@@ -3,19 +3,18 @@
 const userProfile = {
     props: ["user"],
     template: `
-    <div 
-        class="card">
+    <div class="profile">
             <div 
-                class="card__header card__header-user">
+                class="profile__info">
                 <div 
                     class="card">
                         <img 
                             :src="user.img" 
                             alt="user photo"
-                            class="ava">
+                            class="profile__info-ava">
                 </div>   
                     <ul 
-                        class="user-info">
+                        class="profile__info-list">
                             <li 
                                 class="text text__title user-info__title">
                                     {{ user.name }} {{ user.surname }}
@@ -23,27 +22,27 @@ const userProfile = {
 
                             <li 
                                 class="text text__content user-info__item">
-                                    <span class="text--defining">должность:&nbsp</span> 
+                                    <span class="text text_defining">должность:&nbsp</span> 
                                     {{ user.position }}
                             </li>
                             <li 
                                 class="text text__content user-info__item">
-                                    <span class="text--defining">телефон:&nbsp</span> {{ user.phone }}
+                                    <span class="text text_defining">телефон:&nbsp</span> {{ user.phone }}
                             </li>
                             <li 
                                 class="text text__content user-info__item">
-                                    <span class="text--defining">почта:&nbsp</span> {{ user.mail }}
+                                    <span class="text text_defining">почта:&nbsp</span> {{ user.mail }}
                             </li>
                     </ul>
             </div>
             <div 
-                class="user-note row row--white">
+                class="profile__note row row_white">
                     <p 
                         class="text text__content">
                             {{user.note}}
                     </p>
             </div>
-    </div>
+        </div>
     `,
 };
 

@@ -37,28 +37,27 @@ const componentTodo = {
     <div
         :key="item.id"
         @dblclick="setSliderIdx(index), sliderActive()"
-        class="row row-card row-card--interactive db">
+        class="card-row usr-row row row_white card-row_interactive db">
             <div 
-                class="row-card__box row-card__lc">
-                    <h5 class="text text__title">
+                class="card-row__list text">
+                    <h5 class="text__title">
                             {{ user }}
                     </h5>
+                    <p
+                        class="text-content">
+                        {{ item.title }}
+                    </p>
             </div>
 
             <div 
-                class="row-card__box row-card__cc text text-content">
-                    {{ item.title }}
-            </div>
-
-            <div 
-                class="row-card__box row-card__rc text text-content">
+                class="card-row__list usr-row__contact text">
                     <span v-html="crtdAt"
                         class="text-date">
                     </span>
                     <label 
                         :for="'check'+item.id"
                         class="lbl">
-                            {{ item.status?"выполненно":"не выполненно" }}
+                            {{ item.status?"выполненно":"не&nbsp;выполненно" }}
                     </label>
                     <input 
                         v-model="item.status"
@@ -73,3 +72,5 @@ const componentTodo = {
 }
 
 export { componentTodo };
+
+

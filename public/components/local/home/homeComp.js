@@ -18,7 +18,6 @@ const componentHome = {
             if (!correct.has(false)) {
                 const profile = this.$refs.editable.profile;
                 if (this.modified.file !== null) {
-                    console.log('FILE')
                     const data = new FormData()
                     data.append("img", profile.file);
                     await fetch(`${this.url}profile-ava?id=${this.user.id}`, {
@@ -60,13 +59,9 @@ const componentHome = {
         "home-menu": homeMenu,
     },
     template: `
-    <div class="container container__main">
         <home-menu :edit="editProfile"></home-menu>
-        <div class="content">
-            <user-profile v-if="!editor" :user="user"></user-profile>
-            <editor-profile v-else ref="editable"></editor-profile>
-        </div>
-    </div>
+        <user-profile v-if="!editor" :user="user"></user-profile>
+        <editor-profile v-else ref="editable"></editor-profile>
     `,
 };
 
