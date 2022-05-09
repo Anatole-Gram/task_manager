@@ -1,12 +1,15 @@
 
+
 const mapGetters = Vuex.mapGetters;
 
 const tskMenu = {
-    props: ["destination", "id", "trt", "slctusr"],
+    props: ['slctTodo', 'slctUsr', 'td',],
+    methods: {
+        ltlBitStr(str, limit) {
+            return str.length - 1 > limit ? str.slice(0, limit - 1) + '...' : str;
+        }
+    },
     computed: {
-        todos() {
-            return this.usrTodos(this.destination)
-        },
         ...mapGetters([
             "taskWorkers",
             "usrTodos"
@@ -18,14 +21,14 @@ const tskMenu = {
         <ul 
             class="list">
                 <li 
-                    class="list__title lbl lbl--black">
+                    class="list__title lbl lbl_black">
                         над задачей работают:
                     </li>
                 <li v-for="worker of taskWorkers"
                     :key="worker.id"
-                    @click="slctusr(worker.id)"
-                    :class="{'list__item--active': worker.id===destination}"
-                    class="list__item text">
+                    @click="slctUsr(worker.id)"
+                    :class="{'list__item_active': worker.id===td.destination}"
+                    class="list__item row card-row_interactive text">
                         {{worker.name + " " + worker.surname}}
                 </li>
         </ul>
@@ -33,18 +36,18 @@ const tskMenu = {
         <ul 
             class="list">
                 <li    
-                    class="list__title lbl lbl--black">
+                    class="list__title lbl lbl_black">
                         задания пользователя:
                 </li>
-                <li v-for="item of todos"
+                <li v-for="item of usrTodos(td.destination)"
                     :key="item.id"
-                    @click="trt(item)" 
-                    :class="{'list__item--active': item.id===id}"
-                    class="list__item text">
-                        {{item.title}}
+                    @click="slctTodo(item)" 
+                    :class="{'list__item_active': item.id===td.id}"
+                    class="list__item row card-row_interactive text">
+                        {{ltlBitStr(item.title, 30)}}
                 </li>
         </ul>
-</div>
+    </div>
 
     `
 };

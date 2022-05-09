@@ -14,24 +14,68 @@
 }
 
 @-webkit-keyframes dbclick {
-  from {
+  0% {
+    background-color: #fff;
+    color: #333333;
+  }
+  30% {
+    background-color: #333333;
+    color: #e5e5e5;
+  }
+  45% {
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
   }
-  to {
-    -webkit-transform: scaleY(0.97);
-            transform: scaleY(0.97);
+  60% {
+    -webkit-transform: scaleY(0.95);
+            transform: scaleY(0.95);
+  }
+  75% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+  85% {
+    -webkit-transform: scaleY(0.95);
+            transform: scaleY(0.95);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    background-color: #333333;
+    color: #e5e5e5;
   }
 }
 
 @keyframes dbclick {
-  from {
+  0% {
+    background-color: #fff;
+    color: #333333;
+  }
+  30% {
+    background-color: #333333;
+    color: #e5e5e5;
+  }
+  45% {
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
   }
-  to {
-    -webkit-transform: scaleY(0.97);
-            transform: scaleY(0.97);
+  60% {
+    -webkit-transform: scaleY(0.95);
+            transform: scaleY(0.95);
+  }
+  75% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+  85% {
+    -webkit-transform: scaleY(0.95);
+            transform: scaleY(0.95);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    background-color: #333333;
+    color: #e5e5e5;
   }
 }
 
@@ -76,6 +120,46 @@
     opacity: 1;
     -webkit-transform: scale(1.2);
             transform: scale(1.2);
+  }
+}
+
+@-webkit-keyframes arise {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes arise {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes colorReplacement {
+  from {
+    background-color: #fff;
+    color: #333333;
+  }
+  to {
+    background-color: #333333;
+    color: #e5e5e5;
+  }
+}
+
+@keyframes colorReplacement {
+  from {
+    background-color: #fff;
+    color: #333333;
+  }
+  to {
+    background-color: #333333;
+    color: #e5e5e5;
   }
 }
 
@@ -157,14 +241,16 @@ input {
 }
 
 .db:hover {
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
   -webkit-animation-name: dbclick;
           animation-name: dbclick;
-  -webkit-animation-duration: 0.5s;
-          animation-duration: 0.5s;
-  -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
-  -webkit-animation-iteration-count: 2;
-          animation-iteration-count: 2;
 }
 
 .win-act {
@@ -233,6 +319,8 @@ input {
   -ms-grid-column: 1;
   grid-area: header;
   background-color: #333333;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .header__row {
@@ -371,13 +459,13 @@ input {
   padding: 0 8px;
 }
 
+.row_white {
+  background-color: #fff;
+}
+
 .row_black {
   background-color: #333333;
   color: #e5e5e5;
-}
-
-.row_white {
-  background-color: #fff;
 }
 
 .card-row {
@@ -405,8 +493,16 @@ input {
 
 .card-row_interactive:hover {
   cursor: pointer;
-  background-color: #333333;
-  color: #fff;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+  -webkit-animation-duration: 0.9s;
+          animation-duration: 0.9s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-name: colorReplacement;
+          animation-name: colorReplacement;
 }
 
 .usr-row {
@@ -500,6 +596,7 @@ input {
 .profile__info-ava {
   width: 200px;
   height: 200px;
+  display: inline-block;
   border: 2px solid #333333;
   border-radius: 3px;
 }
@@ -662,13 +759,22 @@ input {
   padding-top: 8px;
   border-radius: 0 0 3px 3px;
   background-color: #333333;
+  opacity: 0;
+  -webkit-animation-name: arise;
+          animation-name: arise;
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 
 .slider-btn {
   position: absolute;
   z-index: 7;
-  width: 45px;
-  height: 45px;
+  width: 46px;
+  height: 46px;
   top: 50%;
   opacity: 0.5;
 }
@@ -685,6 +791,7 @@ input {
 
 .slider-btn__close {
   border-radius: 50%;
+  left: calc(50% - 23px);
   background-image: url("/img/btn/close.svg");
   background-size: cover;
   background-position: center;
@@ -697,10 +804,6 @@ input {
           animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
-}
-
-.slider-btn_central {
-  left: 50%;
 }
 
 .slider-btn_left {
@@ -775,6 +878,12 @@ input {
   margin: 8px auto 0;
 }
 
+.todo__menu {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .task-row {
   min-height: 65px;
   display: -webkit-box;
@@ -787,6 +896,10 @@ input {
       -ms-flex-pack: center;
           justify-content: center;
   margin-bottom: 8px;
+}
+
+.task-row:hover {
+  cursor: pointer;
 }
 
 .editor {
@@ -884,15 +997,9 @@ input {
   font-size: 14px;
 }
 
-.list__item:hover {
-  cursor: pointer;
-  background-color: #333333;
-  color: #e5e5e5;
-}
-
-.list__item--active {
-  background-color: #333333;
-  color: #e5e5e5;
+.list__item_active {
+  background-color: #333333 !important;
+  color: #e5e5e5 !important;
 }
 
 .list__item--bhhover {
@@ -910,7 +1017,7 @@ input {
 }
 
 .text__title {
-  font-size: 1.2em;
+  font-size: 1.15em;
   font-weight: 600;
 }
 
@@ -953,6 +1060,7 @@ input {
   .content-menu {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    min-height: 35px;
   }
   .filter {
     padding: 0;
@@ -964,6 +1072,15 @@ input {
   .filter-condition {
     margin: 0;
   }
+  .filter__menu {
+    height: auto;
+  }
+  .card-row__list p {
+    max-height: 40px;
+  }
+  .menu-row {
+    min-height: 35px;
+  }
   .profile__info {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -972,12 +1089,16 @@ input {
   }
   .profile__info li {
     margin-top: 8px;
+    padding: 5px;
   }
   .profile__info-list {
     padding: 0;
   }
   .profile__info-msg {
     margin: 0;
+  }
+  .profile__info-btn {
+    height: 35px;
   }
   .profile__note {
     min-height: 50%;
@@ -990,6 +1111,26 @@ input {
         grid-template-rows: auto auto auto 500px;
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+  }
+  .todo__menu {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 8px;
+    background-color: #333333;
+    -webkit-box-shadow: inset 0 -4px 4px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0 -4px 4px 0 rgba(0, 0, 0, 0.25), inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+  .todo__menu__btn {
+    height: 35px;
+  }
+  .todo__menu .row {
+    -webkit-box-shadow: unset;
+            box-shadow: unset;
+  }
+  .todo__btn {
+    height: 35px;
   }
   .logo {
     min-width: unset;

@@ -51,7 +51,7 @@ const componentTodos = {
         
         <div v-else
              class="content">
-                <template  v-else v-for="(todo, index) of todos">
+                <template v-for="(todo, index) of todos">
                     <user-todo :item="todo" :index="index"></user-todo>
                 </template>
         </div>

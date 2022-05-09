@@ -18,7 +18,7 @@ const compopnetEditor = {
             editTask: false,
         }
     },
-    props: ["task"],
+    props: ["task",],
     components: {
         "begin-created": todoCreator,
         "menu-comp": tskMenu,
@@ -26,10 +26,10 @@ const compopnetEditor = {
     },
     methods: {
         trtUsr(id) {
-            this.todo.destination = id;
+            this.todo.destination === id ? this.reset() : this.reset(id);
         },
         trtTodo(todo) {
-            this.todo = todo;
+            this.todo = Object.create(todo);
         },
         reset(id = 0) {
             this.todo = {
@@ -40,14 +40,6 @@ const compopnetEditor = {
                 taskId: this.task.id,
             };
             this.$refs.todoCrtr.destination = this.todo.destination;
-        },
-        async rmTodo() {
-            const url = `${this.url}deltodos?id=${this.todo.id}&task=${this.todo.taskId}&destination=${this.todo.destination}`;
-            await fetch(url, { method: "DELETE" })
-                .then(response => {
-                    this.del({ response, id: this.todo.id, destination: this.todo.destination });
-                    response.status === 205 ? this.reset() : this.reset(this.todo.destination);
-                });
         },
         updTsk() {
             const correct = new Set(Object.values(this.$refs.tskedit.correct));
@@ -67,7 +59,6 @@ const compopnetEditor = {
         ...mapActions({
             getTodos: "getTaskTodos",
             upd: "updTask",
-            del: "delTodo"
         }),
     },
     computed: {
@@ -86,9 +77,9 @@ const compopnetEditor = {
 
             <task-editor :obj="task" :upd="updTsk" ref="tskedit"></task-editor>
 
-            <begin-created ref="todoCrtr" :obj="todo" :rst="reset" :rm="rmTodo"></begin-created>
+            <begin-created ref="todoCrtr" :obj="todo" :rst="reset"></begin-created>
 
-            <menu-comp :destination="todo.destination" id="todo.id" :trt="trtTodo" :slctusr="reset"></menu-comp>
+            <menu-comp ref="workersMenu" :slctTodo="trtTodo" :slctUsr="trtUsr" :td="todo" ></menu-comp>
 
     </div>
 

@@ -109,11 +109,12 @@ async function addTodo(id, data) {
     return todo;
 };
 async function updTodo(id, data) {
-    await todos.update(data, {
+    const respose = await todos.update(data, {
         where: {
             id: id
         }
-    })
+    });
+    return respose;
 };
 async function updStatus(id) {
     const todo = await todos.findByPk(id);

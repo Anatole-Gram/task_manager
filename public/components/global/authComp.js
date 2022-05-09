@@ -25,6 +25,9 @@ const componentAuth = {
             "isLoggedIn",
         ]),
     },
+    created() {
+        this.auth(0)
+    },
     template: `
     <div class="container container__main">
         <form @submit.prevent="" class="auth">

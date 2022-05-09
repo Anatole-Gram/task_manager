@@ -74,8 +74,13 @@ const mainMutations = {
     // todos
     setTodos(state, payload) { state.todos = payload },
     updTodos(state, payload) {
-        state.taskCurent.taskTodos.push(payload);
-        state.taskCurent.from.add(payload.destination)
+        if (payload.createdAt) {
+            state.taskCurent.taskTodos.push(payload);
+            state.taskCurent.from.add(payload.destination);
+        } else {
+            console.log(payload)
+            Object.assign(state.taskCurent.taskTodos.find(el => el.id === payload.id), payload)
+        }
     },
     // tasks
     setTasks(state, payload) { state.tasks = payload },

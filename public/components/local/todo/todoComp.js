@@ -14,8 +14,11 @@ const componentTodo = {
             return `<span>${date}  ${time}</span>`;
         },
         user() {
-            const user = this.usrById(this.item.destination);
+            const user = this.usrById(this.item.sender);
             return `${user.name} ${user.surname}`
+        },
+        title() {
+            return this.item.title.length > 45 ? this.item.title.slice(0, 45) + "..." : this.item.title.slice(0, 45);
         },
         ...mapGetters([
             "usrById"
@@ -37,22 +40,22 @@ const componentTodo = {
     <div
         :key="item.id"
         @dblclick="setSliderIdx(index), sliderActive()"
-        class="card-row usr-row row row_white card-row_interactive db">
+        class="card-row usr-row row row_white db">
             <div 
                 class="card-row__list text">
                     <h5 class="text__title">
                             {{ user }}
                     </h5>
                     <p
-                        class="text-content">
-                        {{ item.title }}
+                        class="text__content">
+                        {{ title }}
                     </p>
             </div>
 
             <div 
                 class="card-row__list usr-row__contact text">
                     <span v-html="crtdAt"
-                        class="text-date">
+                        class="text__content">
                     </span>
                     <label 
                         :for="'check'+item.id"

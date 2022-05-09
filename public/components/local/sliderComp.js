@@ -48,7 +48,7 @@ function Slider(namespaced, sliderItem) {
 
         <button
             @click="sliderActive()"
-            class="slider-btn slider-btn__close slider-btn_central">
+            class="slider-btn slider-btn__close">
         </button>
             <slider-item v-if="array.length" :item="currentItem"></slider-item>
             <h3 v-else style="textAlign: center" class="text text__title text_red">

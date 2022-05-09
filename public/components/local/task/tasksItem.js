@@ -6,8 +6,7 @@ const commentList = {
     computed: {
         slctd() {
             return this.item.id === this.selected
-        }
-        ,
+        },
         ...mapState([
             "svg",
         ]),
@@ -17,11 +16,11 @@ const commentList = {
     },
     template: `
         <div 
-            class="row row_white task-row card-row_interactive"
-            :class="{'row_black': slctd}">
+            class="row task-row "
+            :class="{'row_black':slctd, 'row_white': !slctd, 'card-row_interactive':!slctd}">
                 <p 
                     class="row-card__content text text__content">
-                        {{ item.title }}
+                        {{item.title}}
                 </p>
         </div>
     `

@@ -13,7 +13,7 @@ const componentUser = {
     template: `
         <div  
             @dblclick="setSliderIdx(index), sliderActive()"
-            class="row row_white card-row usr-row card-row_interactive db">
+            class="row row_white card-row usr-row db">
 
                         <div
                             class="card-row__list text">

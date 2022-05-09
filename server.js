@@ -59,7 +59,9 @@ app.put("/api/updStatus", async function (request, response) {
     // response.send(data)
 });
 app.put("/api/sendTodo", async function (request, response) {
-    await storage.updTodo(request.query.id, request.body)
+    if (await storage.updTodo(request.query.id, request.body)) {
+        response.send({ ...request.body, id: +request.query.id })
+    };
 });
 app.post("/api/sendTodo", async function (request, response) {
     const data = await storage.addTodo(request.query.id, request.body)

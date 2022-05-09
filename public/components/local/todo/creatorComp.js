@@ -35,14 +35,24 @@ const todoCreator = {
                     .then(this.rst(this.obj.destination), this.initCorrect(this.arrToCheckText, this))
             } else alert('форма заполнена некорректно')
         },
+        async rmTodo() {
+            const url = `${this.url}deltodos?id=${this.obj.id}&task=${this.obj.taskId}&destination=${this.obj.destination}`;
+            await fetch(url, { method: "DELETE" })
+                .then(response => {
+                    this.delTodo({ response, id: this.obj.id, destination: this.obj.destination });
+                    response.status === 205 ? this.rst() : this.rst(this.obj.destination);
+                });
+        },
         ...mapActions([
-            "sendTodo"
+            'sendTodo',
+            'delTodo',
         ]),
     },
     computed: {
         ...mapState([
-            "user",
-            "users",
+            'url',
+            'user',
+            'users',
         ]),
     },
     template: `
@@ -101,9 +111,9 @@ const todoCreator = {
 
 
     <div 
-        class="menu-row menu_2b">
+        class="menu-row todo__menu">
             <button v-if="obj.id"
-                @click="rm"
+                @click="rmTodo"
                 class="btn btn--stn row row_black text_white">
                     удалить задание
             </button>

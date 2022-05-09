@@ -25,9 +25,8 @@ $white3: #c4c4c4;
 $white4: #fff;
 $red: #B22222;
 $green: #32CD32;
-$headerHeight: calc($rowMenuHeight*2);
-$footerHeight: 65px;
 $rowMenuHeight: 45px;
+$rowCardHeightM: 35px;
 $rowCardHeight: 65px;
 
 $gapSize: 8px;
@@ -49,13 +48,38 @@ $gapSize: 8px;
 }
 
 @keyframes dbclick {
-    from {
+    0% {
+        background-color: #fff;
+        color: $mainColor2;
+    }
+
+    30% {
+        background-color: $mainColor2;
+        color: $white2;
+    }
+
+    45% {
         transform: scaleY(1);
     }
 
-    to {
-        transform: scaleY(0.97);
+    60% {
+        transform: scaleY(0.95);
     }
+
+    75% {
+        transform: scaleY(1);
+    }
+
+    85% {
+        transform: scaleY(0.95);
+    }
+
+    100% {
+        transform: scaleY(1);
+        background-color: $mainColor2;
+        color: $white2;
+    }
+
 }
 
 @keyframes sliderBtn {
@@ -80,7 +104,27 @@ $gapSize: 8px;
     }
 }
 
+@keyframes arise {
+    from {
+        opacity: 0;
+    }
 
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes colorReplacement {
+    from {
+        background-color: #fff;
+        color: $mainColor2;
+    }
+
+    to {
+        background-color: $mainColor2;
+        color: $white2;
+    }
+}
 
 * {
     margin: 0;
@@ -160,10 +204,11 @@ input {
 
     &:hover {
         animation: {
+            delay: 0.25s;
+            duration: 1.5s;
+            iteration-count: 1;
+            fill-mode: forwards;
             name: dbclick;
-            duration: 0.5s;
-            delay: 0.5s;
-            iteration-count: 2;
         }
     }
 
@@ -243,6 +288,11 @@ input {
 .header {
     grid-area: header;
     background-color: $mainColor2;
+
+    padding: {
+        top: $gapSize;
+        bottom: $gapSize;
+    }
 
     &__row {
         min-height: 30px;
@@ -368,13 +418,13 @@ input {
     @include row-shadow($black1);
     padding: 0 $gapSize;
 
+    &_white {
+        background-color: #fff;
+    }
+
     &_black {
         background-color: $mainColor2;
         color: $white2;
-    }
-
-    &_white {
-        background-color: #fff;
     }
 }
 
@@ -400,8 +450,16 @@ input {
         &_interactive {
             &:hover {
                 cursor: pointer;
-                background-color: $mainColor2;
-                color: #fff;
+                // background-color: $mainColor2;
+                // color: #fff;
+
+                animation: {
+                    delay: 0.2s;
+                    duration: 0.9s;
+                    iteration-count: 1;
+                    fill-mode: forwards;
+                    name: colorReplacement;
+                }
             }
         }
     }
@@ -488,6 +546,7 @@ input {
         &-ava {
             width: 200px;
             height: 200px;
+            display: inline-block;
             border: 2px solid $mainColor2;
             border-radius: 3px;
         }
@@ -625,6 +684,14 @@ input {
         padding-top: $gapSize;
         border-radius: 0 0 3px 3px;
         background-color: $mainColor2;
+        opacity: 0;
+
+        animation: {
+            name: arise;
+            delay: 0.25s;
+            duration: 1s;
+            fill-mode: forwards;
+        }
     }
 
 }
@@ -634,8 +701,8 @@ input {
     &-btn {
         position: absolute;
         z-index: 7;
-        width: 45px;
-        height: 45px;
+        width: 46px;
+        height: 46px;
         top: 50%;
         opacity: 0.5;
 
@@ -651,6 +718,7 @@ input {
 
         &__close {
             border-radius: 50%;
+            left: calc(50% - 23px);
 
             background: {
                 image: url("/img/btn/close.svg");
@@ -667,9 +735,6 @@ input {
             }
         }
 
-        &_central {
-            left: 50%
-        }
 
         &_left {
             left: 0;
@@ -727,6 +792,10 @@ input {
         margin: $gapSize auto 0;
     }
 
+    &__menu {
+        justify-content: space-between;
+    }
+
 
 }
 
@@ -738,6 +807,10 @@ input {
         align-items: center;
         justify-content: center;
         margin-bottom: $gapSize;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 
@@ -822,16 +895,17 @@ input {
         margin-top: $gapSize;
         font-size: 14px;
 
-        &:hover {
-            cursor: pointer;
-            background-color: $mainColor2;
-            color: $white2;
-        }
+        // &:hover {
+        //     cursor: pointer;
+        //     background-color: $mainColor2;
+        //     color: $white2;
+        // }
 
         //iist__item--active 
-        &--active {
-            background-color: $mainColor2;
-            color: $white2;
+        &_active {
+            background-color: $mainColor2  !important;
+            color: $white2  !important;
+
         }
 
         //list__item--bh
@@ -862,7 +936,7 @@ input {
 
     &__title {
         font: {
-            size: 1.2em;
+            size: 1.15em;
             weight: 600;
         }
     }
@@ -895,6 +969,7 @@ input {
 
 @media (max-width: 640px) {
 
+
     .header {
         &__menu {
             flex-wrap: wrap;
@@ -918,6 +993,8 @@ input {
 
     .content-menu {
         flex-wrap: wrap;
+        min-height: $rowCardHeightM;
+        // padding: $gapSize;
     }
 
     .filter {
@@ -928,6 +1005,25 @@ input {
         &-condition {
             margin: 0;
         }
+
+        &__menu {
+            height: auto;
+        }
+    }
+
+    .card {
+        &-row {
+            &__list {
+                & p {
+                    max-height: 40px;
+                }
+            }
+        }
+    }
+
+
+    .menu-row {
+        min-height: $rowCardHeightM;
     }
 
     .profile {
@@ -936,6 +1032,7 @@ input {
 
             & li {
                 margin-top: $gapSize;
+                padding: 5px;
             }
 
             &-list {
@@ -944,6 +1041,10 @@ input {
 
             &-msg {
                 margin: 0;
+            }
+
+            &-btn {
+                height: $rowCardHeightM;
             }
         }
 
@@ -963,6 +1064,28 @@ input {
         gap: $gapSize;
         grid-template-rows: auto auto auto 500px;
         grid-template-columns: 1fr;
+
+    }
+
+    .todo {
+        &__menu {
+            flex-direction: column;
+            padding: $gapSize;
+            background-color: $mainColor2;
+            @include row-shadow($black1);
+
+            &__btn {
+                height: $rowCardHeightM;
+            }
+
+            & .row {
+                box-shadow: unset;
+            }
+        }
+
+        &__btn {
+            height: $rowCardHeightM;
+        }
     }
 
     .logo {
