@@ -20,7 +20,7 @@ const componentHome = {
                 if (this.modified.file !== null) {
                     const data = new FormData()
                     data.append("img", profile.file);
-                    await fetch(`${this.url}profile-ava?id=${this.user.id}`, {
+                    await fetch(`${this.url}profile/updt-ava?id=${this.user.id}`, {
                         method: "POST",
                         body: data,
                     })
@@ -28,7 +28,7 @@ const componentHome = {
                         .then(data => profile.img = data.path)
                         .catch(err => alert(err))
                 };
-                await fetch(`${this.url}profile?id=${this.user.id}`, {
+                await fetch(`${this.url}profile/updt-info?id=${this.user.id}`, {
                     method: "PUT",
                     headers: { 'COntent-Type': 'application/json' },
                     body: JSON.stringify(profile),

@@ -36,7 +36,7 @@ const todoCreator = {
             } else alert('форма заполнена некорректно')
         },
         async rmTodo() {
-            const url = `${this.url}deltodos?id=${this.obj.id}&task=${this.obj.taskId}&destination=${this.obj.destination}`;
+            const url = `${this.url}todos/rm-todo?id=${this.obj.id}&task=${this.obj.taskId}&destination=${this.obj.destination}`;
             await fetch(url, { method: "DELETE" })
                 .then(response => {
                     this.delTodo({ response, id: this.obj.id, destination: this.obj.destination });
