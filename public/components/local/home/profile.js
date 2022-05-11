@@ -2,6 +2,11 @@
 
 const userProfile = {
     props: ["user"],
+    methods: {
+        imgErr(e) {
+            e.target.src = "/img/bg/img-nf.jpg"
+        },
+    },
     template: `
     <div class="profile">
             <div 
@@ -10,6 +15,7 @@ const userProfile = {
                     class="card">
                         <img 
                             :src="user.img" 
+                            @error='imgErr($event)'
                             alt="user photo"
                             class="profile__info-ava">
                 </div>   

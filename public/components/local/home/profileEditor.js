@@ -118,7 +118,7 @@ const editorProfile = {
     template: `
     <div 
         class="profile">
-            <img-loader v-if="avaEditor" ref=imgLoader 
+            <img-loader v-if="avaEditor" ref='imgLoader' 
                 :profileUpd="updateProfileData">
             </img-loader>
 

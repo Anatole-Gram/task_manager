@@ -2,162 +2,88 @@
 const models = require("./models.js")
 const { users, tasks, todos } = models.model
 
+const itemByPk = (model, id) => model.findByPk(id);
+const itemUpdt = (model, id, data) => model.update(data, { where: { id, }, });
+const lastUpdtItem = (model, options) => model.findOne({ ...options, order: [["updatedAt", "DESC"]], });
+const getUsers = async () => await users.findAll({ raw: true });
+
 // users
 function addUser(name, surname, position, phone, mail) {
     let user = { name, surname, position, phone, mail };
     users.create(user);
 };
 async function getUser(id) {
-    let user = await users.findByPk(id);
-    return user;
+    return await itemByPk(users, id)
 };
-async function updUser(id, profile) {
-    await users.update(profile, {
-        where: {
-            id,
-        },
-    }).catch(err => console.log(err))
-    const user = await getUser(id);
-    return (user)
+async function updUser(id, data) {
+    await itemUpdt(users, id, data)
+    return await getUser(id);
 };
-async function getUsers() {
-    let usersList = await users.findAll({ raw: true });
-    return usersList;
-};
-// tasks
+//tasks
 async function addTask(userId, task) {
-    let user = await users.findByPk(userId);
-    await user.createTask(task);
-
-    let crtdTask = await tasks.findOne({
-        where: { userId: userId },
-        order: [["updatedAt", "DESC"]],
-    });
-    return crtdTask;
+    await itemByPk(users, userId)
+        .then(async usr => await usr.createTask(task))
+    return await lastUpdtItem(tasks);
 };
 async function getTask(id) {
-    let task = await tasks.findByPk(id)
-    return task;
+    return await itemByPk(tasks, id)
 };
-async function compareLastTask(inStorage, id) {
-    let lastInStorage = new Date(inStorage)
-    let lastInDB = await tasks.findOne({
-        where: { userId: id },
-        order: [["updatedAt", "DESC"]],
-    });
-    if (lastInDB) {
-        let timeDB = lastInDB.updatedAt.getTime();
-        let timeSt = lastInStorage.getTime();
-        return (timeDB === timeSt)
-    }
-    else return false
+async function compareLastTask(inStorage, userId) {
+    let lastInStorage = new Date(inStorage);
+    let lastInDB = await lastUpdtItem(tasks, { where: { userId, }, });
+    return lastInDB ? (lastInDB.updatedAt.getTime() === lastInStorage.getTime()) : false;
 };
-async function getTasks(id) {
-    let myTasks = await tasks.findAll({
-        raw: true,
-        where: { userId: id },
-        order: [["updatedAt", "DESC"]],
-    });
-    let lastUpd;
-    if (myTasks.length) {
-        lastUpd = myTasks[myTasks.length - 1].updatedAt;
-    } else lastUpd = false;
-    return { from: myTasks, lastUpd }
-};
-async function updTask(id, data) {
-    await tasks.update(data, {
-        where: {
-            id: id
-        }
-    })
-};
-async function delTask(id) {
-    await tasks.destroy({
-        where: {
-            id: id,
-        },
-    });
-}
-// todo
-async function getLastUpdate() {
-    let last = await todos.findOne({
-        order: [["updatedAt", "DESC"]],
-    });
-    return last.updatedAt
-}
-async function compareLastTodo(inStorage) {
-    if (inStorage) {
-        let lastInStorage = new Date(inStorage)
-        let lastInDB = await todos.findOne({
-            order: [["updatedAt", "DESC"]],
-        });
-        let timeDB = lastInDB.updatedAt.getTime();
-        let timeSt = lastInStorage.getTime();
-        return (timeDB === timeSt)
-    } else return false;
+async function getTasks(userId) {
+    return {
+        from: await tasks.findAll({ where: { userId, }, }),
+        lastUpd: await lastUpdtItem(tasks, { where: { userId, }, })
+    };
 
 };
-async function addTodo(id, data) {
-    let task = await tasks.findByPk(id);
-    await task.createTodo(data);
-    const todo = await todos.findOne({
-        where: {
-            taskId: id,
-        },
-        order: [["updatedAt", "DESC"]]
-    });
-    return todo;
+async function updTask(id, data) {
+    await itemUpdt(tasks, id, data)
+};
+async function delTask(id) {
+    await tasks.destroy({ where: { id, }, });
+};
+
+// todo
+async function getLastUpdate() {
+    return await lastUpdtItem(todos).updatedAt
+};
+async function compareLastTodo(inStorage) {
+    return inStorage ?
+        new Date(inStorage).getTime() === await lastUpdtItem(todos).updatedAt.getTime() :
+        false;
+};
+async function addTodo(taskId, data) {
+    await tasks.findByPk(taskId).then(async task => await task.createTodo(data));
+    return await lastUpdtItem(todos, { where: { taskId, }, });
 };
 async function updTodo(id, data) {
-    const respose = await todos.update(data, {
-        where: {
-            id: id
-        }
-    });
-    return respose;
+    return await itemUpdt(todos, id, data);
 };
 async function updStatus(id) {
-    const todo = await todos.findByPk(id);
-    await todo.update({ status: !todo.status }, {
-        where: {
-            id: id,
-        },
-    });
-    return todo.status
+    const todo = await itemByPk(todos, id)
+    await itemUpdt(todos, id, { status: !todo.status },);
+    return todo.status;
 };
-async function delTodo(id, task, destination) {
-    await todos.destroy({
-        where: {
-            id: id,
-        },
-    });
-    const availability = await todos.findAll({
-        where: {
-            taskId: task,
-            destination: destination,
-        },
-    });
-    return availability
-}
+async function delTodo(id, taskId, destination) {
+    await todos.destroy({ where: { id, }, },);
+    return await todos.findAll({ where: { taskId, destination }, },);
+};
 async function getTodos(id) {
-    let data = { for: [], from: [], lastUpd: '' }
-    data.for = await todos.findAll({
-        where: { destination: id }
-    });
-    if (data.for) {
-        data.from = await todos.findAll({
-            where: { sender: id }
-        });
-        [...data.for, ...data.from].forEach(todo => todo.status = Boolean(todo.status));
-        data.last = await todos.findOne({
-            order: [["updatedAt", "DESC"]],
-        });
+    let data = { for: [], from: [], lastUpd: await lastUpdtItem(todos), }
+    if (data.lastUpd) {
+        data.for = await todos.findAll({ where: { destination: id, }, });
+        data.from = await todos.findAll({ where: { sender: id, }, });
+        [...data.for, ...data.from].forEach(todo => todo.status = Boolean(todo.status))
     };
     return data
 };
-async function getTodosFromTask(id) {
+async function getTodosFromTask(taskId) {
     let data = await todos.findAll({
-        where: { taskId: id },
+        where: { taskId, },
     });
     let from = new Set();
     data.forEach(todo => from.add(todo.destination));

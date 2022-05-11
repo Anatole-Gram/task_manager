@@ -33,7 +33,7 @@ const mainActions = {
     },
     //user
     async getUser({ state, commit, }, id) {
-        const data = await getJson(`${state.url}user?id=${id}`, { method: "GET" })
+        const data = await getJson(`${state.url}users/user?id=${id}`, { method: "GET" })
         commit("setUser", data)
     },
     //users
@@ -43,7 +43,7 @@ const mainActions = {
     },
     //todos
     async getTaskTodos({ state, commit }, payload) {
-        const data = await getJson(`${state.url}task/todos?id=${payload}`, { method: "GET" });
+        const data = await getJson(`${state.url}tasks/task-todos?id=${payload}`, { method: "GET" });
         commit("setTaskCurent", data)
     },
     async getTodos({ commit, state }, id) {
@@ -54,7 +54,7 @@ const mainActions = {
         }
     },
     async sendTodo({ state, commit }, payload) {
-        const response = await fetch(`${state.url}sendTodo?id=${payload.id}`, payload.data);
+        const response = await fetch(`${state.url}todos/send-todo?id=${payload.id}`, payload.data);
         if (response.status === 200) {
             const data = await response.json();
             commit("updTodos", data)
@@ -68,17 +68,17 @@ const mainActions = {
         }
     },
     async updStatus({ state }, id) {
-        await fetch(`${state.url}updStatus?id=${id}`, { method: "PUT" })
+        await fetch(`${state.url}todos/upd-status?id=${id}`, { method: "PUT" })
             .catch(err => console.log(`что то пошло не так: ${err}`))
     },
     //tasks
     async addTask({ state, commit }, payload) {
-        const data = await getJson(`${state.url}addtask?id=${state.user.id}`, payload);
+        const data = await getJson(`${state.url}tasks/add-task?id=${state.user.id}`, payload);
         commit("updTasks", data)
         return data.id
     },
     async updTask({ state }, payload) {
-        await getJson(`${state.url}updtask?id=${payload.id}`, payload.data);
+        await getJson(`${state.url}tasks/updt-task?id=${payload.id}`, payload.data);
     },
     async getTasks({ commit, state }, id) {
         const response = await fetch(`${state.url}tasks?id=${id}&last=${state.tasks.lastUpd}`, { method: "GET" });
@@ -90,7 +90,7 @@ const mainActions = {
 
     // #
     async delTask({ state, commit }, payload) {
-        let url = `${state.url}deltask?id=${payload.id}`
+        let url = `${state.url}tasks/rm-task?id=${payload.id}`
         const response = await fetch(url, { method: "DELETE" })
         if (response.ok) {
             commit("rmTskByIdx", payload.index)

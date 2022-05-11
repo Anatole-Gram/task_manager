@@ -1,4 +1,5 @@
 db_connection.js 
+mailer-log.js
 /public/img/avatars
 /node_modules
 package-lock.json
