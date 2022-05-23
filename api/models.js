@@ -2,6 +2,30 @@
 // db_connection.js добавлен в .gitignore
 const { Sequelize, sequelize } = require("./db_connection")
 
+const Product = sequelize.define("product", {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    description: {
+        type: Sequelize.STRING(1275),
+        allowNull: false,
+    },
+    cost: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    img: {
+        type: Sequelize.STRING,
+        defaultValue: "/img/avatars/load-error.png",
+    },
+})
 const User = sequelize.define("user", {
     id: {
         type: Sequelize.INTEGER,
@@ -94,4 +118,4 @@ Task.hasMany(Todo, {
     onUpdate: "CASCADE",
 });
 
-module.exports.model = { users: User, tasks: Task, todos: Todo }
+module.exports.model = { users: User, tasks: Task, todos: Todo, products: Product }

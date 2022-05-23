@@ -1,6 +1,6 @@
 
 const models = require("./models.js")
-const { users, tasks, todos } = models.model
+const { users, tasks, todos, products } = models.model
 
 const itemByPk = (model, id) => model.findByPk(id);
 const itemUpdt = (model, id, data) => model.update(data, { where: { id, }, });
@@ -89,5 +89,13 @@ async function getTodosFromTask(taskId) {
     data.forEach(todo => from.add(todo.destination));
     return { taskTodos: data, from: [...from] };
 };
+// product
+const getProducts = async () => { await products.findAll() }
+const addProduct = async (data) => {
+    await products.create(data);
+    return await lastUpdtItem(products);
+}
+const rmProduct = async (id) => { await products.destroy({ where: { id, }, }); }
 
-module.exports = { addUser, getUser, getUsers, updUser, addTask, updTask, delTask, getTask, getTasks, compareLastTask, addTodo, updTodo, getTodos, delTodo, updStatus, getTodosFromTask, compareLastTodo, getLastUpdate }
+// module.exports.products = { getProducts, addProduct, rmProduct }
+module.exports = { addUser, getUser, getUsers, updUser, addTask, updTask, delTask, getTask, getTasks, compareLastTask, addTodo, updTodo, getTodos, delTodo, updStatus, getTodosFromTask, compareLastTodo, getLastUpdate, getProducts, addProduct, rmProduct }

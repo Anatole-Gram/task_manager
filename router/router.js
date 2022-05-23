@@ -94,6 +94,20 @@ tasks.delete("/rm-task", async function (request, response) {
     await storage.delTask(request.query.id);
     response.send();
 })
+//products
+const products = express.Router();
+products.get('/', async function (request, response) {
+    response.send(await storage.getProducts());
+});
+products.post('/', async function (request, response) {
+    const product = await storage.addProduct(request.body);
+    response.send(product)
+});
+products.delete('/', async function (request, response) {
+    await storage.rmProduct(request.query.id);
+    response.send(request.query.id);
+});
 
-module.exports = { profile, users, todos, tasks }
+
+module.exports = { profile, users, todos, tasks, products }
 
